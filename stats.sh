@@ -43,3 +43,23 @@ while read mergeLog; do
 	fi
 
 done < <(git --git-dir="$gitDir" log --oneline --since=01-01-15 --merges)
+
+read -r -d '' JSON <<EOF
+{
+	"commits": {
+		"count": ${statCommitCount},
+		"messages": {
+			"totalWords": ${statCommitMessageWords}
+			}
+		},
+	"lines": {
+			"added": ${statLinesAdded},
+			"deleted": ${statLinesDeleted}
+		},
+	"branch": {
+			"mergeCount": ${statBranchMergeCount}
+		}
+}
+EOF
+
+echo "${JSON}"
