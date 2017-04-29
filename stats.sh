@@ -6,6 +6,7 @@ regexDeletions="([0-9]+) deletions?"
 
 statInsertions=0
 statDeletions=0
+statCommitCount=0
 
 while read line; do
 
@@ -17,6 +18,9 @@ while read line; do
 		statDeletions=$(($statDeletions+${BASH_REMATCH[1]}))
 	fi
 
+	statCommitCount=$(($statCommitCount+1))
+
 done < /dev/stdin
 
+echo "Commits: $statCommitCount"
 echo "Ins: $statInsertions; Dels: $statDeletions"
