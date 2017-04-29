@@ -28,11 +28,11 @@ while read line; do
 
 	statCommitCount=$(($statCommitCount+1))
 
-	echo -en "\rCommits: $statCommitCount; Ins: $statLinesAdded; Dels: $statLinesDeleted"
+	echo -en "\rCommits: $statCommitCount; Ins: $statLinesAdded; Dels: $statLinesDeleted" 1>&2
 
 done < <(git --git-dir="$gitDir" log --pretty=tformat: --shortstat --since=01-01-15)
 
-echo
+echo 1>&2
 
 while read mergeLog; do
 
