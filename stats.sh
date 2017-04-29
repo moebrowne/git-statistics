@@ -6,9 +6,14 @@ gitDir="$1"
 regexInsertions="([0-9]+) insertions?"
 regexDeletions="([0-9]+) deletions?"
 
+# Regex to match: a0b1c2d Merge branch 'branch/name' into branch/name2
+regexBranchMerge="[0-9a-f]{7} Merge branch '([^']+)'"
+
 statLinesAdded=0
 statLinesDeleted=0
 statCommitCount=0
+statBranchMergeCount=0
+branchList=""
 
 while read line; do
 
@@ -29,3 +34,13 @@ done < <(git --git-dir="$gitDir" log --pretty=tformat: --shortstat --since=01-01
 echo ""
 
 statCommitMessageWords=$(git --git-dir="$gitDir" log --pretty='%B' --since=01-01-15 | wc -w)
+
+while read mergeLog; do
+
+	if [[ $mergeLog =~ $regexBranchMerge ]]; then
+		echo "${BASH_REMATCH[1]}"
+		branchList="$branchList\n${BASH_REMATCH[1]}"
+		statBranchMergeCount=$(($statBranchMergeCount+1))
+	fi
+
+done < <(git --git-dir="$gitDir" log --oneline --since=01-01-15 --merges)
