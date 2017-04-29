@@ -22,7 +22,8 @@ while read line; do
 
 	statCommitCount=$(($statCommitCount+1))
 
-done < <(git --git-dir="$gitDir" log --pretty=tformat: --shortstat --since=01-01-17)
+	echo -en "Commits: $statCommitCount; Ins: $statLinesAdded; Dels: $statLinesDeleted\r"
 
-echo "Commits: $statCommitCount"
-echo "Ins: $statLinesAdded; Dels: $statLinesDeleted"
+done < <(git --git-dir="$gitDir" log --pretty=tformat: --shortstat --since=01-01-15)
+
+echo ""
