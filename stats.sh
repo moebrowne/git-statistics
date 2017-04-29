@@ -11,7 +11,7 @@ regexBranchMerge="[0-9a-f]{7} Merge branch '([^']+)'"
 
 statLinesAdded=0
 statLinesDeleted=0
-statCommitCount=0
+statCommitCount=$(git --git-dir="$gitDir" rev-list --count master)
 statCommitMessageWords=$(git --git-dir="$gitDir" log --pretty='%B' --since=01-01-15 | wc -w)
 statBranchMergeCount=0
 branchList=""
@@ -26,9 +26,7 @@ while read line; do
 		statLinesDeleted=$(($statLinesDeleted+${BASH_REMATCH[1]}))
 	fi
 
-	statCommitCount=$(($statCommitCount+1))
-
-	echo -en "\rCommits: $statCommitCount; Ins: $statLinesAdded; Dels: $statLinesDeleted" 1>&2
+	echo -en "\rIns: $statLinesAdded; Dels: $statLinesDeleted" 1>&2
 
 done < <(git --git-dir="$gitDir" log --pretty=tformat: --shortstat --since=01-01-15)
 
