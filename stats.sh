@@ -37,7 +37,6 @@ echo
 while read mergeLog; do
 
 	if [[ $mergeLog =~ $regexBranchMerge ]]; then
-		echo "${BASH_REMATCH[1]}"
 		branchList="$branchList\n${BASH_REMATCH[1]}"
 		statBranchMergeCount=$(($statBranchMergeCount+1))
 	fi
