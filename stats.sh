@@ -27,3 +27,5 @@ while read line; do
 done < <(git --git-dir="$gitDir" log --pretty=tformat: --shortstat --since=01-01-15)
 
 echo ""
+
+statCommitMessageWords=$(git --git-dir="$gitDir" log --pretty='%B' --since=01-01-15 | wc -w)
