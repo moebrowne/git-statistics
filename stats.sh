@@ -11,11 +11,11 @@ statCommitCount=0
 while read line; do
 
 	if [[ $line =~ $regexInsertions ]]; then
-		$statLinesAdded=$(($statLinesAdded+${BASH_REMATCH[1]}))
+		statLinesAdded=$(($statLinesAdded+${BASH_REMATCH[1]}))
 	fi
 
 	if [[ $line =~ $regexDeletions ]]; then
-		$statLinesDeleted=$(($statLinesDeleted+${BASH_REMATCH[1]}))
+		statLinesDeleted=$(($statLinesDeleted+${BASH_REMATCH[1]}))
 	fi
 
 	statCommitCount=$(($statCommitCount+1))
