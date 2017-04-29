@@ -12,6 +12,7 @@ regexBranchMerge="[0-9a-f]{7} Merge branch '([^']+)'"
 statLinesAdded=0
 statLinesDeleted=0
 statCommitCount=0
+statCommitMessageWords=$(git --git-dir="$gitDir" log --pretty='%B' --since=01-01-15 | wc -w)
 statBranchMergeCount=0
 branchList=""
 
@@ -32,8 +33,6 @@ while read line; do
 done < <(git --git-dir="$gitDir" log --pretty=tformat: --shortstat --since=01-01-15)
 
 echo
-
-statCommitMessageWords=$(git --git-dir="$gitDir" log --pretty='%B' --since=01-01-15 | wc -w)
 
 while read mergeLog; do
 
