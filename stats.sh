@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+gitDir="$1"
+
 # Regex to match: X files changed, Y insertions(+), Z deletions(-)
 regexInsertions="([0-9]+) insertions?"
 regexDeletions="([0-9]+) deletions?"
@@ -20,7 +22,7 @@ while read line; do
 
 	statCommitCount=$(($statCommitCount+1))
 
-done < /dev/stdin
+done < <(git --git-dir="$gitDir" log --pretty=tformat: --shortstat --since=01-01-17)
 
 echo "Commits: $statCommitCount"
 echo "Ins: $statLinesAdded; Dels: $statLinesDeleted"
