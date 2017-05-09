@@ -37,7 +37,7 @@ The `date` argument is optional, it takes the format `DD-MM-YY`. It represents t
 
 ### Contributors
 
-- [ ] Count
+- [x] Count
 
 ## Formats
 

@@ -14,6 +14,7 @@ statLinesAdded=0
 statLinesDeleted=0
 statCommitCount=$(git --git-dir="$gitDir" rev-list --count master --since="$dateSince")
 statCommitMessageWords=$(git --git-dir="$gitDir" log --pretty='%B' --since="$dateSince" | wc -w)
+statContributorsCount=$(git --git-dir="$gitDir" log --format="%aE" --since="$dateSince" | sort | uniq | wc -l)
 statBranchMergeCount=0
 branchList=""
 
@@ -56,6 +57,9 @@ read -r -d '' JSON <<EOF
 		},
 	"branch": {
 			"mergeCount": ${statBranchMergeCount}
+		},
+	"contributors": {
+			"count": ${statContributorsCount}
 		}
 }
 EOF
