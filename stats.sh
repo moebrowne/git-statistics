@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 gitDir="$1"
-date="${2:-$(date +%d-%m-%Y -d  "1 year ago")}"
+dateSince="${2:-$(date +%d-%m-%Y -d  "1 year ago")}"
 
 # Regex to match: X files changed, Y insertions(+), Z deletions(-)
 regexInsertions="([0-9]+) insertions?"
@@ -12,8 +12,8 @@ regexBranchMerge="[0-9a-f]{7} Merge branch '([^']+)'"
 
 statLinesAdded=0
 statLinesDeleted=0
-statCommitCount=$(git --git-dir="$gitDir" rev-list --count master)
-statCommitMessageWords=$(git --git-dir="$gitDir" log --pretty='%B' --since=01-01-15 | wc -w)
+statCommitCount=$(git --git-dir="$gitDir" rev-list --count master --since="$dateSince")
+statCommitMessageWords=$(git --git-dir="$gitDir" log --pretty='%B' --since="$dateSince" | wc -w)
 statBranchMergeCount=0
 branchList=""
 
@@ -29,7 +29,7 @@ while read line; do
 
 	echo -en "\rIns: $statLinesAdded; Dels: $statLinesDeleted" 1>&2
 
-done < <(git --git-dir="$gitDir" log --pretty=tformat: --shortstat --since=01-01-15)
+done < <(git --git-dir="$gitDir" log --pretty=tformat: --shortstat --since="$dateSince")
 
 echo 1>&2
 
@@ -40,7 +40,7 @@ while read mergeLog; do
 		statBranchMergeCount=$(($statBranchMergeCount+1))
 	fi
 
-done < <(git --git-dir="$gitDir" log --oneline --since=01-01-15 --merges)
+done < <(git --git-dir="$gitDir" log --oneline --since="$dateSince" --merges)
 
 read -r -d '' JSON <<EOF
 {
