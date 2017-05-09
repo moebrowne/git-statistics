@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 gitDir="$1"
+date="${2:-$(date +%d-%m-%Y -d  "1 year ago")}"
 
 # Regex to match: X files changed, Y insertions(+), Z deletions(-)
 regexInsertions="([0-9]+) insertions?"
