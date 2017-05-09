@@ -13,8 +13,8 @@ To get the statistics for a repo run the following
 ./stats.sh path/to/git/repo/.git [date]
 ```
 
-The `date` argument is optional. It represents the minimum date to collect stats from. If not provided it will default 
- to 1 year ago from today.
+The `date` argument is optional, it takes the format `DD-MM-YY`. It represents the minimum date to collect stats from. 
+ If not provided it will default to 1 year ago from today.
 
 ## Statistics
 
