@@ -16,6 +16,30 @@ To get the statistics for a repo run the following
 The `date` argument is optional, it takes the format `DD-MM-YY`. It represents the minimum date to collect stats from. 
  If not provided it will default to 1 year ago from today.
 
+## Example Output
+
+```json
+{
+	"commits": {
+		"count": 643,
+		"messages": {
+			"totalWords": 15788
+			}
+		},
+	"lines": {
+			"added": 47333,
+			"deleted": 10710
+		},
+	"branch": {
+			"mergeCount": 208
+		},
+	"contributors": {
+			"count": 29
+		}
+}
+
+```
+
 ## Statistics
 
 ### Commits
